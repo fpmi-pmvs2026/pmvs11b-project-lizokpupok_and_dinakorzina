@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.project"
+    namespace = "com.example.travelplanner"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.project"
+        applicationId = "com.example.travelplanner"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -42,6 +42,8 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
