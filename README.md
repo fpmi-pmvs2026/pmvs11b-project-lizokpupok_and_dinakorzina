@@ -1,6 +1,24 @@
 # Travel Planner
 
-Travel Planner is a student Android application for planning trips, places to visit, and expected travel expenses. The current implementation focuses on Participant 1 responsibilities: Jetpack Compose UI, navigation, ViewModel state, user actions, validation, and unit tests. Data is temporarily stored in `FakeTripRepository`, which can later be replaced by Room and API implementations.
+[![Android CI](https://github.com/fpmi-pmvs2026/pmvs11b-project-lizokpupok_and_dinakorzina/actions/workflows/android-ci.yml/badge.svg)](https://github.com/fpmi-pmvs2026/pmvs11b-project-lizokpupok_and_dinakorzina/actions/workflows/android-ci.yml)
+
+Travel Planner — мобильное Android-приложение для планирования поездок. Пользователь создаёт поездки, добавляет места для посещения, отслеживает бюджет и получает информацию о странах назначения через внешний REST API. Приложение построено на Clean Architecture: Jetpack Compose UI, Room для локального хранения данных, Retrofit для API-запросов, Coroutines и Flow для асинхронной работы.
+
+## Installation
+
+1. Клонируйте репозиторий:
+   ```bash
+   git clone https://github.com/fpmi-pmvs2026/pmvs11b-project-lizokpupok_and_dinakorzina.git
+   cd pmvs11b-project-lizokpupok_and_dinakorzina
+   ```
+2. Откройте проект в **Android Studio** (2025.3.1+).
+3. Дождитесь завершения Gradle Sync.
+4. Выберите эмулятор или устройство с **Android API 24+**.
+5. Нажмите **Run ▶** или соберите APK:
+   ```bash
+   ./gradlew assembleDebug
+   # APK: app/build/outputs/apk/debug/app-debug.apk
+   ```
 
 ## Usage
 
@@ -27,14 +45,32 @@ Participant 1 implemented:
 - Usage documentation for the user scenario.
 - Slide content about interface and functionality.
 
-Participant 2 can continue by replacing `FakeTripRepository` with Room/API-backed implementations through the existing `TripRepository` interface, adding GitHub infrastructure, APK artifact workflow, Wiki, and GitHub Pages.
+Participant 2 (Диана) реализовала:
+
+- Room / SQLite: `TripEntity`, `PlaceEntity`, `TripWithPlaces`, `TripDao`, `AppDatabase`.
+- `RoomTripRepository` — заменяет `FakeTripRepository`, реализует тот же `TripRepository`.
+- REST Countries API (Retrofit + OkHttp + Gson): информация о стране назначения.
+- Coroutines и Flow: все DB/API операции на `Dispatchers.IO`.
+- `DestinationInfoViewModel` — Loading / Success / Error состояния.
+- Unit-тесты: `EntityMappersTest`, `DtoMappersTest`.
+- Instrumented тесты: `TripDaoTest` на Room in-memory DB.
+- GitHub Actions CI/CD: сборка APK + unit-тесты + instrumented тесты.
+- GitHub Pages документация (`docs/`).
+- Wiki страницы (`wiki/`).
+- SQL-схема (`schema.sql`).
 
 ## Local Development
 
 Run unit tests:
 
 ```bash
-./gradlew test
+./gradlew testDebugUnitTest
+```
+
+Run instrumented tests (requires emulator or device):
+
+```bash
+./gradlew connectedDebugAndroidTest
 ```
 
 Build a debug APK:
@@ -42,3 +78,16 @@ Build a debug APK:
 ```bash
 ./gradlew assembleDebug
 ```
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| UI | Jetpack Compose + Material 3 |
+| Navigation | Navigation Compose |
+| State | ViewModel + StateFlow |
+| Database | Room 2.7.1 (SQLite) |
+| Network | Retrofit 2.9.0 + OkHttp + Gson |
+| Async | Coroutines + Flow |
+| CI/CD | GitHub Actions |
+| Tests | JUnit 4, Room in-memory, Espresso |
